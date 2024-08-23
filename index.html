@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASISPEC</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        nav a:hover {
+            color: #ccc;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 50px);
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .dot.active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">RESEARCH</a>
+            <a href="#">PUBLICATIONS</a>
+            <a href="#">GROUP</a>
+            <a href="#">GALLERY</a>
+            <a href="#">CONTACT US</a>
+        </nav>
+        <h1>TASISPEC</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>WELCOME TO</h1>
+            <h1>TRACE ANALYSIS AND</h1>
+            <h1>SPECTROSCOPY LAB</h1>
+            <p>"Deciphering the exotic mysteries of Nuclear Physics with Advanced Tools"</p>
+
+            <div class="dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
