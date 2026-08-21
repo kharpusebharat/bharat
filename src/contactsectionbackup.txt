@@ -1,0 +1,31 @@
+{/* Contact Section */}
+     /* <section id="Contact" className="py-24 bg-slate-50">
+        <div className="max-w-xl mx-auto text-center space-y-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-semibold text-gray-900"
+          >
+            Contact&nbsp;Me
+          </motion.h2>
+          <p className="text-lg text-slate-600">
+            I’m open to collaboration and discussion – feel free to reach out!
+          </p>
+          <div className="flex justify-center gap-6 text-slate-700">
+            <a href="mailto:bharatkharpuse@gmail.com" className="hover:text-sky-600">
+              <Mail size={28} />
+            </a>
+            <a href="https://www.linkedin.com/in/bharat-kharpuse-369728161/" target="_blank" rel="noreferrer" className="hover:text-sky-600">
+              <Linkedin size={28} />
+            </a>
+            <a href="https://www.researchgate.net/profile/Bharat_Kharpuse2?ev=hdr_xprf" target="_blank" rel="noreferrer" className="hover:text-sky-600">
+              <Github size={28} />
+            </a>
+            <a href="Bharat_CVU.pdf" target="_blank" rel="noreferrer" className="hover:text-sky-600 flex items-center">
+              <File size={28} />
+            </a>
+          </div>
+        </div>
+      </section>

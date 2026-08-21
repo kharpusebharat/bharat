@@ -2,74 +2,177 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Root variables */
+:root{
+  --font-system: system-ui, Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --text-color: #213547;
+  --bg-color: #ffffff;
+  --link-color: #0ea5e9;
+  --link-hover: #0284c7;
+  --nav-height: 64px; /* adjust if your nav is taller */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Global reset */
+html,body,#root {
+  margin:0;
+  padding:0;
+  height:100%;
+  width:100%;
+  box-sizing:border-box;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-system);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x: hidden;
 }
 
+/* Prevent document scrolling; sections scroll instead */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  overflow-y: hidden;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Panel container: each section occupies the viewport under the navbar
+   NOTE: no horizontal padding here so backgrounds are full-bleed */
+.section-panel {
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0; /* <<-- important: remove global horizontal gutters */
+  background: transparent;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Inner content container used by sections for centered max-width and padding */
+.section-inner {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* helpful max widths you can use */
+.section-inner.max-w-md { max-width: 720px; }
+.section-inner.max-w-lg { max-width: 960px; }
+.section-inner.max-w-xl { max-width: 1120px; }
+.section-inner.max-w-2xl { max-width: 1400px; }
+
+/* Use display: none for hidden panels (keeps DOM simple) */
+.section-hidden { display: none; }
+.section-visible { display: block; }
+
+/* small scrollbar styling (optional) */
+.section-panel::-webkit-scrollbar { width: 10px; }
+.section-panel::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 999px; }
+
+/* Links/buttons global */
+a { color: var(--link-color); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) { * { animation-duration: 0 !important; transition-duration: 0 !important; } }
+
+
+/* ---------- Force panels to be full-bleed ---------- */
+/* Make the scrollable panel itself able to carry the background. */
+.section-panel {
+  /* keep existing rules (positioning/overflow) */
+  /* ensure the panel can show a background edge-to-edge */
+  padding: 0 !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
 }
 
+/* If a section placed its gradient on an inner container by mistake,
+   ensure that inner container is transparent so the panel's background shows. */
+.section-panel .section-inner,
+.section-panel > .section-inner,
+.section-panel > div.section-inner {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* If a section's component accidentally used a centered wrapper with
+   its own background, clear it for full-bleed visual: */
+.section-panel > .max-w-5xl,
+.section-panel > .max-w-6xl,
+.section-panel > .max-w-4xl,
+.section-panel > .max-w-2xl {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Set explicit full-bleed backgrounds per panel ---------- */
+/* Put the actual gradient on the panel itself — this forces full width */
+#Home.section-panel {
+  background: linear-gradient(180deg, #061021 0%, #0b2836 50%, #0f2b37 100%) !important;
+}
+#About.section-panel {
+  background: #ffffff !important;
+}
+#Research.section-panel { background: #f8fafc !important; } /* example */
+#Publications.section-panel { background: #ffffff !important; }
+#Gallery.section-panel { background: #ffffff !important; }
+#Contact.section-panel { background: #f8fafc !important; }
+
+/* ---------- Prevent centered containers from adding visible gutters ---------- */
+/* If you still want content centered, keep section-inner max-width but ensure
+   it doesn't draw a different background (it should be transparent). */
+.section-inner {
+  background: transparent !important;
+}
+
+/* ---- Force full-bleed content & remove boxed backgrounds ---- */
+
+/* Make all section-inner containers full width */
+.section-inner,
+.section-inner[class*="max-w"],
+.max-w-5xl, .max-w-6xl, .max-w-4xl, .max-w-2xl, .max-w-xl, .max-w-7xl, .container {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Remove background/box from any direct child wrapper that might be centering content */
+.section-panel > * {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Clear common "card" backgrounds inside sections that produce boxed look */
+.section-panel .bg-white, .section-panel .bg-slate-50, .section-panel .bg-gray-100 {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Ensure panels themselves carry the background edge-to-edge */
+.section-panel {
+  padding: 0 !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
+}
+
+/* If a section child sets width via inline style or fixed pixels, force it to be fluid */
+.section-panel *[style*="max-width"], .section-panel *[style*="width"] {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Final safety: remove any large left/right margins on major wrapper elements */
+.section-panel > div, .section-panel > main, .section-panel > article {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
