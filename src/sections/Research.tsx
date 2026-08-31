@@ -1,149 +1,107 @@
 import React from "react";
+import { ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionFooter from "./SectionFooter";
 
-const Research: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) => {
-  return (
-    <div className="w-full h-full flex flex-col">
-      <div className="flex-1 px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl font-semibold mb-8 text-center text-gray-900"
-        >
-          Research&nbsp;Interests
-        </motion.h2>
+const projects = [
+  {
+    institution: "INFN Torino · FOOT Collaboration",
+    period: "Current research",
+    title: "Measuring fragmentation for better particle therapy",
+    question: "How do ion beams produce secondary fragments when they interact with tissue-equivalent targets?",
+    contribution: "I work on BGO calorimeter calibration and response characterization, and contribute to differential cross-section analysis.",
+    methods: "BGO calorimetry · detector response · neutron detection · cross-section analysis",
+    outcome: "This work supports more precise treatment planning in hadron therapy and improved radiation-risk models for space missions.",
+    images: [
+      { src: "calo_imag.jpg", alt: "BGO calorimeter setup" },
+      { src: "response_calo.png", alt: "BGO calorimeter response" },
+    ],
+    link: "https://iopscience.iop.org/article/10.1088/1748-0221/20/03/P03021",
+    linkLabel: "Read related detector paper",
+  },
+  {
+    institution: "Vi-Hi Collaboration",
+    period: "Current Collaborative research",
+    title: "Micro-computed tomography for biological tissue",
+    question: "How can phase-contrast X-ray imaging and reconstruction improve three-dimensional tissue studies?",
+    contribution: "I contribute to work combining high-resolution micro-CT, phase contrast, and computational reconstruction methods.",
+    methods: "Micro-CT · phase-contrast X-ray imaging · computational reconstruction",
+    outcome: "The collaboration explores improved imaging workflows for biological samples.",
+    images: [{ src: "Vi-HI_setup.jpg", alt: "Vi-Hi micro-computed tomography setup" }],
+  },
+  {
+    institution: "IIT-Roorkee",
+    period: "2024–2025",
+    title: "Fusion reaction dynamics in 11B + Zr systems",
+    question: "What residual radionuclides are produced in boron-induced reactions on zirconium?",
+    contribution: "I used off-line gamma-ray measurements to determine residual production cross sections and study the reaction dynamics.",
+    methods: "Off-line gamma spectroscopy · reaction cross sections · radionuclide analysis",
+    outcome: "The analysis was presented at the DAE Symposium on Nuclear Physics 68 (2025).",
+    images: [
+      { src: "exp_setup.png", alt: "Fusion experiment setup" },
+      { src: "oral.jpg", alt: "Research presentation at DAE Symposium" },
+    ],
+    link: "https://link.springer.com/article/10.1140/epjp/s13360-025-07171-6",
+    linkLabel: "View Published Article",
+  },
+  {
+    institution: "Visva-Bharati University",
+    period: "2022–2024",
+    title: "Nuclear structure around the A≈70 mass region",
+    question: "What can gamma-ray spectra reveal about the structure and lifetimes of 66Zn and 66Ga?",
+    contribution: "I carried out spectroscopy and lifetime measurements using the INGA detector array.",
+    methods: "INGA HPGe array · gamma-ray spectroscopy · lifetime measurements",
+    outcome: "The work was presented at the DAE Symposium on Nuclear Physics 67 (2024).",
+    images: [
+      { src: "bharat_vecc.jpg", alt: "INGA campaign at VECC" },
+      { src: "69Ge.png", alt: "Nuclear level scheme" },
+    ],
+    link: "https://inspirehep.net/literature/2764532",
+    linkLabel: "View conference paper",
+  },
 
-        {/* Research Areas */}
-        <div className="grid md:grid-cols-1 gap-8 text-lg mb-12">
-          <motion.div
-            className="p-6 bg-yellow-50 rounded-xl shadow-md transform transition-transform duration-300 hover:scale-105"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="grid md:grid-cols-2 gap-6 items-center">
-              <p className="text-sm text-slate-700">
-                I have a strong and growing interest in the medical applications of nuclear physics, particularly in advancing
-                particle therapy and enhancing space radiation protection. My current work with the FOOT (FragmentatiOn Of
-                Target) collaboration involves measuring the cross sections of secondary fragments produced in ion interactions
-                with tissue-equivalent targets, crucial data for improving treatment planning in hadron therapy and for assessing
-                radiation risks in space missions. This interest is strongly supported by my previous research on fusion dynamics
-                and nuclear structure, where I developed a deep understanding of nuclear reactions and detector technologies.
-                This background now enables me to effectively contribute to the precise characterization of nuclear processes
-                essential for medical and space-related applications.
-              </p>
-              <img
-                src="application.png"
-                alt="Research Area Illustration"
-                className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105"
-              />
-            </div>
-          </motion.div>
-        </div>
+];
 
-        {/* Current Work */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white p-6 rounded-xl shadow-md mb-10"
-        >
-          <h3 className="text-xl font-bold text-indigo-700 mb-1">@Vi-Hi Collaboration</h3>
-          <p className="text-sm text-slate-600 mb-4">
-             Focuses on high-resolution, three-ropic dimensional micro-computed tomography (μCT) for biological tissue samples. Integrates phase-contrast X-ray imaging and advanced computational or deep-learning reconstruction algorithms
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <img src="Vi-HI_setup.jpg" alt="Calorimeter Image 1" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer" />
-          </div>
-      
-        </motion.div>
+const Research: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) => (
+  <div className="flex h-full w-full flex-col">
+    <div className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Research portfolio</p>
+        <h2 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">From nuclear reactions to real-world applications.</h2>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">My work combines nuclear physics, detector development, and quantitative analysis to understand processes that matter in medicine, biology, and space science.</p>
+      </motion.div>
 
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white p-6 rounded-xl shadow-md mb-10"
-        >
-          <h3 className="text-xl font-bold text-indigo-700 mb-1">@INFN-Torino</h3>
-          <p className="text-sm text-slate-600 mb-4">
-            I am currently working with the INFN-Torino group as part of the FOOT Collaboration, focusing on the calibration and response characterization of the BGO calorimeter, one of the key detectors in the experiment. I also contribute to the data analysis for differential cross-section measurements.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <img src="calo_imag.jpg" alt="Calorimeter Image 1" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer" />
-           <div>
-            <img src="response_calo.png" alt="Calorimeter Image 2" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer" />
-            <p className="text-xs text-slate-500 italic mt-2">
-            <a href="https://iopscience.iop.org/article/10.1088/1748-0221/20/03/P03021" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-800">
-                  DOI: 10.1088/1748-0221/20/03/P03021
-                </a>
-              </p>
-            </div>      
-          </div>
-        </motion.div>
-
-        {/* Previous Work */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white p-6 rounded-xl shadow-md mb-10"
-        >
-          <h3 className="text-xl font-bold text-indigo-700 mb-1">@IIT-Roorkee</h3>
-          <p className="text-sm text-slate-600 mb-4">
-           Investigated the fusion dynamics of <em>11B + Zr</em> systems using off-line gamma measurement techniques to measure cross sections of the residual radionuclides.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex justify-center">
-              <img src="exp_setup.png" alt="Image 1" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer max-h-72 object-contain" />
-            </div>
-            <div className="flex flex-col items-center">
-              <img src="oral.jpg" alt="Image 2" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer max-h-72 object-contain" />
-              <p className="text-xs text-slate-500 italic mt-2">
-              <a href="https://inspirehep.net/literature/2877428" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-800">
-                   DAE Symp.Nucl.Phys. 68 (2025) 399-400
-                </a>
-              </p>
-            </div>      
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white p-6 rounded-xl shadow-md mb-10"
-        >
-          <h3 className="text-xl font-bold text-indigo-700 mb-1">@Visva-Bharati</h3>
-          <p className="text-sm text-slate-600 mb-4">
-              Conducted spectroscopy and lifetime measurements at Visva-Bharati University to explore the structure of <em>66Zn</em> and <em>66Ga</em> using the INGA detector array.
-            </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex justify-center">
-              <img src="bharat_vecc.jpg" alt="Image 1" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer max-h-72 object-contain" />
-            </div>
-            <div className="flex flex-col items-center">
-              <img src="69Ge.png" alt="Image 2" className="rounded-lg shadow transform transition-transform duration-300 hover:scale-105 cursor-pointer max-h-72 object-contain" />
-              <p className="text-xs text-slate-500 italic mt-2">
-                 <a href="https://inspirehep.net/literature/2764532" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-800">
-                   DAE Symp.Nucl.Phys. 67 (2024) 99-100
-                </a>
-              </p>
-            </div>      
-          </div>
-        </motion.div>
+      <div className="mt-10 grid grid-cols-2 border-y border-slate-300 sm:grid-cols-4">
+        {["Medical physics", "Detector systems", "Nuclear reactions", "Gamma spectroscopy"].map((theme) => <div key={theme} className="border-slate-300 px-3 py-5 text-center text-sm font-semibold text-slate-700 first:border-r sm:border-r sm:last:border-r-0">{theme}</div>)}
       </div>
-      <SectionFooter sectionId="Research" onNavigate={onNavigate} />
+
+      <div className="mt-14 space-y-14">
+        {projects.map((project, index) => (
+          <motion.article key={project.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.45 }} className="border-t-2 border-slate-300 pt-7">
+            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-700">{project.institution}</p>
+                <p className="mt-2 text-sm text-slate-500">{project.period}</p>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{project.title}</h3>
+                {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan-700 hover:text-cyan-900">{project.linkLabel} <ExternalLink size={15} /></a>}
+              </div>
+              <div className="grid gap-6 text-sm leading-6 text-slate-600 sm:grid-cols-2">
+                <div><p className="font-semibold text-slate-900">The question</p><p className="mt-1">{project.question}</p></div>
+                <div><p className="font-semibold text-slate-900">My contribution</p><p className="mt-1">{project.contribution}</p></div>
+                <div><p className="font-semibold text-slate-900">Methods</p><p className="mt-1">{project.methods}</p></div>
+                <div><p className="font-semibold text-slate-900">Outcome</p><p className="mt-1">{project.outcome}</p></div>
+              </div>
+            </div>
+            <div className={`mt-8 grid gap-4 ${project.images.length > 1 ? "sm:grid-cols-2" : "sm:max-w-md"}`}>
+              {project.images.map((image) => <figure key={image.src} className="overflow-hidden border border-slate-300 bg-white/40"><img src={image.src} alt={image.alt} className="h-56 w-full object-cover transition-transform duration-500 hover:scale-105" /></figure>)}
+            </div>
+            {index === 0 && <p className="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">Featured current project</p>}
+          </motion.article>
+        ))}
+      </div>
     </div>
-  );
-};
+    <SectionFooter sectionId="Research" onNavigate={onNavigate} />
+  </div>
+);
 
 export default Research;

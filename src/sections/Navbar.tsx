@@ -20,31 +20,25 @@ const Navbar: React.FC<NavbarProps> = ({ items, active, onNavigate }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full backdrop-blur bg-white/60 z-50 shadow-md">
-      <div className="max-w-5xl mx-auto flex items-center justify-between p-4">
-        <div>
-          <span className="text-xl font-bold text-black">Bharat Kharpuse</span>
-          <span className="text-sm text-gray-600 block">Research Fellow</span>
-        </div>
-        <ul className="hidden md:flex gap-6 text-sm font-medium">
+    <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#071b2b]/95 text-white shadow-lg backdrop-blur-md">
+      <div className="mx-auto flex min-h-20 w-full max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
+        <button onClick={() => handleClick("Home")} className="text-left" aria-label="Go to home">
+          <span className="block text-base font-bold tracking-tight sm:text-lg">Bharat Kharpuse</span>
+          <span className="block text-xs text-cyan-300">Nuclear physics researcher</span>
+        </button>
+        <div className="hidden rounded-full border border-white/10 bg-white/5 p-1 md:block">
+        <ul className="flex gap-1 text-sm font-medium">
           {items.map((id) => (
             <li key={id}>
-              <button
-                onClick={() => handleClick(id)}
-                className={`transition-colors ${
-                  active === id
-                    ? "text-sky-500"
-                    : "text-gray-800 hover:text-sky-500"
-                }`}
-                aria-current={active === id ? "page" : undefined}
-              >
+              <button onClick={() => handleClick(id)} className={`rounded-full px-4 py-2 transition-colors ${active === id ? "bg-cyan-400 font-semibold text-[#071b2b]" : "text-slate-300 hover:bg-white/10 hover:text-white"}`} aria-current={active === id ? "page" : undefined}>
                 {id}
               </button>
             </li>
           ))}
         </ul>
+        </div>
         <button
-          className="md:hidden p-2 rounded-md text-gray-800"
+          className="rounded-lg border border-white/15 p-2 text-slate-200 md:hidden"
           onClick={() => setMobileOpen((o) => !o)}
           aria-label="Toggle menu"
         >
@@ -52,16 +46,16 @@ const Navbar: React.FC<NavbarProps> = ({ items, active, onNavigate }) => {
         </button>
       </div>
       {mobileOpen && (
-        <div className="md:hidden bg-white/90 backdrop-blur shadow-md">
-          <ul className="flex flex-col gap-4 p-4">
+        <div className="border-t border-white/10 bg-[#0b2836] md:hidden">
+          <ul className="grid grid-cols-2 gap-2 p-4">
             {items.map((id) => (
               <li key={id}>
                 <button
                   onClick={() => handleClick(id)}
-                  className={`w-full text-left transition-colors ${
+                  className={`w-full rounded-lg px-3 py-3 text-left transition-colors ${
                     active === id
-                      ? "text-sky-500"
-                      : "text-gray-800 hover:text-sky-500"
+                      ? "bg-cyan-400 font-semibold text-[#071b2b]"
+                      : "text-slate-300 hover:bg-white/10 hover:text-white"
                   }`}
                   aria-current={active === id ? "page" : undefined}
                 >

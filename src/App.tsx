@@ -1,4 +1,4 @@
-import Portfolio from "./Portfolio";
+import Portfolio from "./portfolio";
 
 export default function App() {
   return <Portfolio />;

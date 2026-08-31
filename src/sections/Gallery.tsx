@@ -6,7 +6,7 @@ import SectionFooter from "./SectionFooter";
 const Gallery: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) => {
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex-1 px-6">
+      <div className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-20 sm:px-6 lg:px-8">
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-3xl font-semibold mb-8 text-center text-gray-900">
           Gallery
         </motion.h2>

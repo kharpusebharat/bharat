@@ -37,64 +37,43 @@ const About: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) 
   ];
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="flex-1 flex flex-col gap-16 text-gray-900 px-6">
-        <div className="flex flex-col md:flex-row items-center gap-8 w-full">
-          <motion.img initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} src="bharat_imag.jpg" alt="Bharat portrait" className="w-48 h-48 rounded-full object-cover shadow-lg" />
-          <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="space-y-4 text-lg">
-            <h2 className="text-2xl font-semibold">About Me</h2>
-            <p>
+    <div className="w-full flex flex-col bg-[#f7f8f5]">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col gap-12 px-4 py-20 text-slate-900 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[62rem]">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">The person behind the work</p>
+            <h2 className="mt-3 max-w-[42rem] text-4xl font-bold tracking-[-0.04em] sm:text-5xl lg:text-[3.5rem] lg:leading-[1.02]">A physicist building a practical path from nuclei to patients.</h2>
+            <p className="mt-6 max-w-[52rem] text-base leading-8 text-slate-700 sm:text-lg">
               I'm passionate about applying nuclear physics to medical challenges, particularly in radiation therapy and space radioprotection. At INFN Torino, I contribute to the FOOT experiment, focusing on BGO calorimeter response and neutron detection techniques crucial for understanding secondary fragments from therapeutic beams.
             </p>
-            <p>
+            <p className="mt-5 max-w-[52rem] text-base leading-8 text-slate-700 sm:text-lg">
               Previously, I worked on gamma-ray spectroscopy and fusion–evaporation studies, gaining hands-on experience with gamma radiation and detector systems.
             </p>
-          </motion.div>
-        </div>
+          </div>
 
         <div>
-          <h3 className="text-3xl font-bold mb-6">Scholastic Achievements</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {achievements.map((item, idx) => (
-              <div key={idx} className="bg-gray-100 rounded-xl p-4 shadow flex items-start gap-4">
-                <img src={item.logo} alt={`${item.title} logo`} className="w-12 h-12 object-contain" />
-                <div>
-                  <h4 className="font-semibold text-xl mb-2">{item.title}</h4>
-                  <p>{item.description}</p>
-                </div>
-              </div>
+          <h3 className="mb-6 text-3xl font-bold">Education & experience</h3>
+          <div className="relative ml-2 border-l-2 border-cyan-200 pl-7">
+            {[...education.map((item) => ({ period: item.period, title: item.degree, place: item.place }))].map((item, index) => (
+              <motion.div key={`${item.title}-${index}`} initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative mb-7 last:mb-0">
+                <span className="absolute -left-[2.15rem] top-1.5 h-3 w-3 rounded-full border-2 border-[#f7f8f5] bg-cyan-500" />
+                <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
+                <h4 className="mt-1 text-lg font-semibold">{item.title}</h4>
+                <p className="mt-1 leading-6 text-slate-600">{item.place}</p>
+              </motion.div>
             ))}
           </div>
         </div>
 
         <div>
-          <h3 className="text-3xl font-bold mb-6">Education</h3>
-          <div className="space-y-6">
-            {education.map((edu, i) => (
-              <div key={i} className="border-l-4 border-gray-300 pl-4">
-                <p className="text-sm text-gray-500">{edu.period}</p>
-                <h4 className="font-semibold text-xl">{edu.degree}</h4>
-                <p>{edu.place}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-3xl font-bold mb-6">Experience</h3>
-          <div className="space-y-6">
-            {experience.map((exp, idx) => (
-              <div key={idx} className="bg-gray-100 p-4 rounded-xl shadow">
-                <h4 className="font-semibold text-xl mb-1">{exp.title}</h4>
-                <p>{exp.detail}</p>
-              </div>
-            ))}
+          <h3 className="mb-6 text-3xl font-bold">Selected qualifications</h3>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {achievements.map((item) => <div key={item.title} className="flex items-center gap-4 border-b border-slate-200 py-3"><img src={item.logo} alt="" className="h-10 w-10 object-contain" /><div><h4 className="font-semibold">{item.title}</h4><p className="text-sm text-slate-600">{item.description}</p></div></div>)}
           </div>
         </div>
 
         <div>
           <h3 className="text-3xl font-bold mb-6">Skills & Expertise</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Instruments:</strong> INGA (HPGe detector array), SCA, MCA</li>
             </ul>
@@ -102,26 +81,6 @@ const About: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) 
               <li><strong>Software:</strong> NUSHELLX, KSHELL</li>
               <li><strong>Analysis Tools:</strong> CERN-ROOT, Python, GENIEE-2K, RADWARE, INGASHORT</li>
             </ul>
-          </div>
-          {/* animated bars */}
-          <div className="mt-8 space-y-4">
-            {[
-              { label: "C++", pct: 0.9 },
-              { label: "Python", pct: 0.8 },
-              { label: "ROOT", pct: 0.7 },
-            ].map((skill) => (
-              <motion.div
-                key={skill.label}
-                className="w-full bg-gray-200 rounded-full h-4"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: skill.pct }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 1 }}
-                style={{ transformOrigin: "left" }}
-              >
-                <span className="sr-only">{skill.label}</span>
-              </motion.div>
-            ))}
           </div>
         </div>
       </div>

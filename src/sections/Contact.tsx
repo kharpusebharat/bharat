@@ -5,9 +5,17 @@ import { Linkedin, Mail, File } from "lucide-react";
 import SectionFooter from "./SectionFooter";
 
 const Contact: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const subject = encodeURIComponent(String(form.get("subject") || "Website enquiry"));
+    const body = encodeURIComponent(`Name: ${form.get("name")}\nEmail: ${form.get("email")}\n\n${form.get("message")}`);
+    window.location.href = `mailto:bharatkharpuse@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex-1 text-center space-y-6 px-6">
+      <div className="mx-auto w-full max-w-[1200px] flex-1 space-y-6 px-4 py-20 text-center sm:px-6 lg:px-8">
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-3xl font-semibold text-gray-900">
           Contact Me
         </motion.h2>
@@ -31,8 +39,7 @@ const Contact: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }
 
             {/* contact form template */}
             <form
-              action="https://formspree.io/f/your-form-id"
-              method="POST"
+              onSubmit={handleSubmit}
               className="w-full md:w-3/5 space-y-4 text-left"
             >
             <div>
@@ -42,6 +49,7 @@ const Contact: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }
               <input
                 type="text"
                 id="name"
+                name="name"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-sky-500 focus:border-sky-500"
                 placeholder="Your name"
               />
@@ -53,6 +61,7 @@ const Contact: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }
               <input
                 type="email"
                 id="email"
+                name="email"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-sky-500 focus:border-sky-500"
                 placeholder="you@example.com"
               />
@@ -64,6 +73,7 @@ const Contact: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }
               <input
                 type="text"
                 id="subject"
+                name="subject"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-sky-500 focus:border-sky-500"
                 placeholder="Brief summary"
               />
@@ -74,6 +84,7 @@ const Contact: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={4}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-sky-500 focus:border-sky-500"
                 placeholder="Write your message here..."
