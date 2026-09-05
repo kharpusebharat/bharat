@@ -31,18 +31,18 @@ const SectionFooter: React.FC<SectionFooterProps> = ({ sectionId, onNavigate, sm
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="mt-8 flex flex-wrap items-center justify-center gap-3 border-t border-white/10 px-5 py-5"
+        className={`mt-8 flex flex-wrap items-center justify-center gap-3 border-t px-5 py-5 ${sectionId === "Home" ? "border-slate-200" : "border-white/10"}`}
       >
         <button
           onClick={handleBackToTop}
-          className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-sm text-slate-300 transition-colors hover:border-cyan-300 hover:text-cyan-300"
+          className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-colors ${sectionId === "Home" ? "border-slate-300 text-slate-600 hover:border-cyan-600 hover:text-cyan-700" : "border-white/15 text-slate-300 hover:border-cyan-300 hover:text-cyan-300"}`}
         >
           <ArrowUp size={16} />
           Top
         </button>
         <button
           onClick={handleGoHome}
-          className="inline-flex items-center gap-2 rounded-lg bg-cyan-400 px-4 py-2 text-sm font-semibold text-[#071b2b] transition-colors hover:bg-cyan-300"
+          className="inline-flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-cyan-700"
         >
           <Home size={16} />
           Home

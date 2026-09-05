@@ -5,6 +5,7 @@
 /* Root variables */
 :root{
   --font-system: system-ui, Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
   --text-color: #213547;
   --bg-color: #f7f8f5;
   --link-color: #0ea5e9;
@@ -29,6 +30,14 @@ html,body,#root {
 
 body {
   overflow-y: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
 }
 
 #site-root {
@@ -92,7 +101,7 @@ a:hover { color: var(--link-hover); }
 }
 
 #Home.section-panel {
-  background: #071b2b !important;
+  background: #f7f8f5 !important;
 }
 #About.section-panel,
 #Research.section-panel,
