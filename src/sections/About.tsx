@@ -36,6 +36,53 @@ const About: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) 
     },
   ];
 
+  const skills = [
+    {
+      number: "01",
+      title: "Fragmentation Studies",
+      context: "FOOT Collaboration · Active",
+      accent: "bg-cyan-600",
+      details: [
+        ["Instruments", "FOOT experiment, neutron detectors"],
+        ["Analysis Tools", "CERN-ROOT, Python"],
+        ["Simulation", "Monte Carlo simulation using GEANT4"],
+      ],
+    },
+    {
+      number: "02",
+      title: "Phase-Contrast Imaging",
+      context: "Vi-Hi Collaboration · Active",
+      accent: "bg-rose-500",
+      details: [
+        ["Instruments", "Interference grating setup"],
+        ["Analysis Tools", "Custom analysis package in Julia"],
+      ],
+    },
+    {
+      number: "03",
+      title: "Nuclear Reactions",
+      context: "Gamma-ray spectroscopy and reaction dynamics",
+      accent: "bg-amber-500",
+      details: [
+        ["Instruments", "Off-beam gamma-ray spectroscopy at TIFR"],
+        ["Analysis Tools", "GENIEE-2K for peak fitting"],
+        ["Theoretical Models", "TALYS, EMPIRE, PACE4"],
+      ],
+    },
+    {
+      number: "04",
+      title: "Nuclear Structure",
+      context: "Gamma-ray spectroscopy and shell-model studies",
+      accent: "bg-emerald-600",
+      details: [
+        ["Instruments", "INGA HPGe detector array at VECC"],
+        ["Analysis Tools", "INGASORT, RADWEAR, TV"],
+        ["Theoretical Models", "NUSHELLX, KSHELL"],
+      ],
+    },
+    
+  ];
+
   return (
     <div className="w-full flex flex-col bg-[#f7f8f5]">
       <div className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col gap-12 px-4 py-20 text-slate-900 sm:px-6 lg:px-8">
@@ -72,17 +119,44 @@ const About: React.FC<{ onNavigate?: (id: string) => void }> = ({ onNavigate }) 
         </div>
 
         <div>
-          <h3 className="text-3xl font-bold mb-6">Skills & Expertise</h3>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Instruments:</strong> INGA (HPGe detector array), SCA, MCA</li>
-            </ul>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Software:</strong> NUSHELLX, KSHELL</li>
-              <li><strong>Analysis Tools:</strong> CERN-ROOT, Python, GENIEE-2K, RADWARE, INGASHORT</li>
-            </ul>
+          <div className="mb-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Current to foundational</p>
+              <h3 className="mt-2 text-3xl font-bold">Skills & Expertise</h3>
+            </div>
+            <p className="max-w-sm text-sm leading-6 text-slate-600">Research methods, instruments, and computational tools developed across each stage of the work.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+            {skills.map((skill, index) => (
+              <motion.article
+                key={skill.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+                viewport={{ once: true, amount: 0.2 }}
+                className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/70 p-6 shadow-sm"
+              >
+                <div className={`absolute inset-y-0 left-0 w-1 ${skill.accent}`} />
+                <div className="flex items-start gap-4">
+                  <span className="font-mono text-sm font-semibold text-slate-400">{skill.number}</span>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-xl font-bold text-slate-900">{skill.title}</h4>
+                    <p className="mt-1 text-sm text-slate-500">{skill.context}</p>
+                    <dl className="mt-5 space-y-3 border-t border-slate-100 pt-4">
+                      {skill.details.map(([label, value]) => (
+                        <div key={label} className="grid grid-cols-[5.5rem_1fr] gap-3 text-sm leading-6">
+                          <dt className="font-semibold text-slate-700">{label}</dt>
+                          <dd className="text-slate-600">{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
+
       </div>
       <SectionFooter sectionId="About" onNavigate={onNavigate} />
     </div>
